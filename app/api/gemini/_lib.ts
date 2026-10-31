@@ -7,7 +7,7 @@ export type JsonRecord = Record<string, unknown>;
 
 export function getModel(systemInstruction?: string) {
   const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
+  if (!apiKey || apiKey === "your_gemini_api_key_here") {
     throw new Error("GEMINI_API_KEY is not configured");
   }
 

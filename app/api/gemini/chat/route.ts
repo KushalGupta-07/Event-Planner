@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getModel, jsonError, text } from "../_lib";
+import { createOfflineChatResponse } from "../offline";
 
 interface ChatMessage {
   role: "user" | "assistant";
@@ -24,6 +25,12 @@ export async function POST(req: NextRequest) {
     const safeContext = Object.fromEntries(
       Object.entries(eventContext || {}).map(([key, value]) => [key, text(value)])
     );
+    const lastMessage = safeMessages[safeMessages.length - 1];
+    if (!process.env.GEMINI_API_KEY || process.env.GEMINI_API_KEY === "your_gemini_api_key_here") {
+      return NextResponse.json({
+        response: createOfflineChatResponse(lastMessage.content, text(safeContext.eventType, "event")),
+      });
+    }
     const systemInstruction = `You are an expert, friendly event planning assistant specializing in ${text(safeContext.eventType, "events")}.
 Event context: ${JSON.stringify(safeContext)}.
 Be concise, practical, and enthusiastic. Use bullet points for lists. Keep responses under 300 words.`;
@@ -37,7 +44,6 @@ Be concise, practical, and enthusiastic. Use bullet points for lists. Keep respo
 
     const chat = model.startChat({ history });
 
-    const lastMessage = safeMessages[safeMessages.length - 1];
     const result = await chat.sendMessage(lastMessage.content);
 
     return NextResponse.json({ response: result.response.text() });

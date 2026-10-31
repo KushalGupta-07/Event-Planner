@@ -19,17 +19,19 @@ AI-powered event planning for **Weddings**, **Birthday Parties**, and **Communit
 
 ## Getting Started
 
-### 1. Get a Gemini API Key
+### 1. (Optional) Get a Gemini API Key
 
 Visit [Google AI Studio](https://aistudio.google.com/) and create a free API key.
 
 ### 2. Configure Environment Variables
 
-Open `.env.local` in the project root and replace the placeholder:
+Open `.env.local` in the project root and replace the placeholder if you want AI-generated content:
 
 ```env
 GEMINI_API_KEY=your_actual_gemini_api_key_here
 ```
+
+The Budget, Timeline, Vendors, Ideas, and AI Chat tabs work without an API key using deterministic offline responses. When a valid key is configured, these features use Gemini for richer personalized output.
 
 ### 3. Install Dependencies
 

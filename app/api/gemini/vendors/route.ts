@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getModel, parseModelJson, positiveNumber, text as sanitizeText } from "../_lib";
+import { createOfflineVendors } from "../offline";
 
 export async function POST(req: NextRequest) {
   try {
@@ -10,6 +11,9 @@ export async function POST(req: NextRequest) {
     const location = sanitizeText(body.location, "TBD");
     const preferences = sanitizeText(body.preferences, "None");
     if (!guestCount) return NextResponse.json({ error: "Guest count must be positive." }, { status: 400 });
+    if (!process.env.GEMINI_API_KEY || process.env.GEMINI_API_KEY === "your_gemini_api_key_here") {
+      return NextResponse.json(createOfflineVendors(eventType));
+    }
     const model = getModel();
 
     const prompt = `You are an expert event planner. Generate a comprehensive vendor checklist for a ${eventType} event.

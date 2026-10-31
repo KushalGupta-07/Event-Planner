@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getModel, jsonError, parseModelJson, positiveNumber, text as sanitizeText } from "../_lib";
+import { createOfflineTimeline } from "../offline";
 
 export async function POST(req: NextRequest) {
   try {
@@ -10,6 +11,9 @@ export async function POST(req: NextRequest) {
     const location = sanitizeText(body.location, "TBD");
     const preferences = sanitizeText(body.preferences, "None");
     if (!eventDate || !guestCount) return jsonError("Event date and guest count are required.");
+    if (!process.env.GEMINI_API_KEY || process.env.GEMINI_API_KEY === "your_gemini_api_key_here") {
+      return NextResponse.json(createOfflineTimeline(eventType, eventDate));
+    }
     const model = getModel();
     const today = new Date().toISOString().split("T")[0];
 

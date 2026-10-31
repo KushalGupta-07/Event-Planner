@@ -297,7 +297,7 @@ export default function PlanPage() {
       if (!res.ok) throw new Error("API error");
       setBudgetData(await res.json());
     } catch {
-      alert("Failed to generate budget. Please check your Gemini API key in .env.local and try again.");
+      alert("Failed to generate budget. Please try again.");
     } finally {
       setBudgetLoading(false);
     }
@@ -325,7 +325,7 @@ export default function PlanPage() {
       const data: TimelineMilestone[] = await res.json();
       setTimeline(data.map((m) => ({ ...m, completed: false })));
     } catch {
-      alert("Failed to generate timeline. Please check your Gemini API key and try again.");
+      alert("Failed to generate timeline. Please try again.");
     } finally {
       setTimelineLoading(false);
     }
@@ -354,7 +354,7 @@ export default function PlanPage() {
         }))
       );
     } catch {
-      alert("Failed to generate vendor list. Please check your Gemini API key and try again.");
+      alert("Failed to generate vendor list. Please try again.");
     } finally {
       setVendorsLoading(false);
     }
@@ -380,7 +380,7 @@ export default function PlanPage() {
       if (!res.ok) throw new Error("API error");
       setIdeas(await res.json());
     } catch {
-      alert("Failed to generate ideas. Please check your Gemini API key and try again.");
+      alert("Failed to generate ideas. Please try again.");
     } finally {
       setIdeasLoading(false);
     }
@@ -530,7 +530,7 @@ export default function PlanPage() {
                   <input
                     id="event-name"
                     aria-label="Event name"
-                    className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                    className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-300"
                     placeholder={`My ${meta.title}`}
                     value={details.name}
                     onChange={(e) => updateDetail("name", e.target.value)}
@@ -545,7 +545,7 @@ export default function PlanPage() {
                     id="event-date"
                     type="date"
                     aria-label="Event date"
-                    className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                    className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-300"
                     value={details.date}
                     onChange={(e) => updateDetail("date", e.target.value)}
                   />
@@ -560,7 +560,7 @@ export default function PlanPage() {
                     type="number"
                     aria-label="Guest count"
                     min={1}
-                    className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                    className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-300"
                     value={details.guestCount}
                     onChange={(e) => updateDetail("guestCount", e.target.value)}
                   />
@@ -574,7 +574,7 @@ export default function PlanPage() {
                     <select
                       id="currency"
                       aria-label="Currency"
-                      className="border border-r-0 border-slate-200 rounded-l-lg px-2 py-2 text-sm bg-slate-50 focus:outline-none"
+                      className="border border-r-0 border-slate-200 rounded-l-lg px-2 py-2 text-sm text-slate-900 bg-slate-50 focus:outline-none"
                       value={details.currency}
                       onChange={(e) => updateDetail("currency", e.target.value)}
                     >
@@ -588,7 +588,7 @@ export default function PlanPage() {
                       min={0}
                       id="total-budget"
                       aria-label="Total budget"
-                      className="flex-1 border border-slate-200 rounded-r-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                      className="flex-1 border border-slate-200 rounded-r-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-300"
                       value={details.budget}
                       onChange={(e) => updateDetail("budget", e.target.value)}
                     />
@@ -602,7 +602,7 @@ export default function PlanPage() {
                   <input
                     id="location"
                     aria-label="Location"
-                    className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                    className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-300"
                     placeholder="City or venue"
                     value={details.location}
                     onChange={(e) => updateDetail("location", e.target.value)}
@@ -616,7 +616,7 @@ export default function PlanPage() {
                   <input
                     id="theme"
                     aria-label="Theme or style"
-                    className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                    className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-300"
                     placeholder="e.g. Rustic, Modern, Boho"
                     value={details.theme}
                     onChange={(e) => updateDetail("theme", e.target.value)}
@@ -630,7 +630,7 @@ export default function PlanPage() {
                   <input
                     id="preferences"
                     aria-label="Special preferences and notes"
-                    className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                    className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-300"
                     placeholder="Dietary restrictions, cultural traditions, music preferences…"
                     value={details.preferences}
                     onChange={(e) =>
@@ -696,7 +696,7 @@ export default function PlanPage() {
               />
             )}
             {budgetLoading && (
-              <LoadingState text="Gemini is calculating your optimal budget breakdown…" />
+              <LoadingState text="Calculating your optimal budget breakdown…" />
             )}
 
             {budgetData && !budgetLoading && (
@@ -826,7 +826,7 @@ export default function PlanPage() {
               />
             )}
             {timelineLoading && (
-              <LoadingState text="Gemini is creating your personalised timeline…" />
+              <LoadingState text="Creating your personalised timeline…" />
             )}
 
             {timeline.length > 0 && !timelineLoading && (
@@ -941,7 +941,7 @@ export default function PlanPage() {
               />
             )}
             {vendorsLoading && (
-              <LoadingState text="Gemini is compiling your vendor checklist…" />
+              <LoadingState text="Compiling your vendor checklist…" />
             )}
 
             {vendors.length > 0 && !vendorsLoading && (
@@ -1097,7 +1097,7 @@ export default function PlanPage() {
               />
             )}
             {ideasLoading && (
-              <LoadingState text="Gemini is crafting personalised ideas for your event…" />
+              <LoadingState text="Crafting personalised ideas for your event…" />
             )}
 
             {ideas && !ideasLoading && (
@@ -1378,7 +1378,7 @@ export default function PlanPage() {
                   <input
                     id="chat-input"
                     aria-label={`Ask about your ${meta.title}`}
-                    className="flex-1 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                    className="flex-1 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-300"
                     placeholder={`Ask about your ${meta.title} — budget, vendors, ideas…`}
                     value={chatInput}
                     onChange={(e) => setChatInput(e.target.value)}

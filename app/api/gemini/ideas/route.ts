@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getModel, parseModelJson, positiveNumber, text as sanitizeText } from "../_lib";
+import { createOfflineIdeas } from "../offline";
 
 export async function POST(req: NextRequest) {
   try {
@@ -10,6 +11,9 @@ export async function POST(req: NextRequest) {
     const budget = sanitizeText(body.budget, "Moderate");
     const preferences = sanitizeText(body.preferences, "None");
     const season = sanitizeText(body.season, "Not specified");
+    if (!process.env.GEMINI_API_KEY || process.env.GEMINI_API_KEY === "your_gemini_api_key_here") {
+      return NextResponse.json(createOfflineIdeas(eventType, theme));
+    }
     const model = getModel();
 
     const prompt = `You are a creative event designer. Generate personalized, creative ideas for a ${eventType} event.
