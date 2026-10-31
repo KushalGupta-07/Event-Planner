@@ -54,6 +54,26 @@ npm run build
 npm run start
 ```
 
+### 6. Test and Validate Changes
+
+The project has unit tests for its deterministic offline planning responses, plus
+linting, TypeScript validation, and a production build check:
+
+```bash
+# Run the full validation suite
+npm test
+
+# Run only unit tests
+npm run test:unit
+
+# Keep unit tests running while developing
+npm run test:watch
+```
+
+Add new behavior-focused tests under `tests/` with a `.test.ts` or `.test.tsx`
+extension. `npm test` is the recommended pre-commit check and should remain
+green as the application evolves.
+
 ## Project Structure
 
 ```
